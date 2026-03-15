@@ -10,92 +10,103 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as HorsesIndexRouteImport } from './routes/horses/index'
-import { Route as AppointmentsIndexRouteImport } from './routes/appointments/index'
-import { Route as HorsesCreateRouteImport } from './routes/horses/create'
-import { Route as AppointmentsUpdateRouteImport } from './routes/appointments/update'
-import { Route as AppointmentsCreateRouteImport } from './routes/appointments/create'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedAboutRouteImport } from './routes/_authenticated/about'
+import { Route as AuthenticatedHorsesIndexRouteImport } from './routes/_authenticated/horses/index'
+import { Route as AuthenticatedAppointmentsIndexRouteImport } from './routes/_authenticated/appointments/index'
+import { Route as AuthenticatedHorsesCreateRouteImport } from './routes/_authenticated/horses/create'
+import { Route as AuthenticatedAppointmentsUpdateRouteImport } from './routes/_authenticated/appointments/update'
+import { Route as AuthenticatedAppointmentsCreateRouteImport } from './routes/_authenticated/appointments/create'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
-const HorsesIndexRoute = HorsesIndexRouteImport.update({
-  id: '/horses/',
-  path: '/horses/',
-  getParentRoute: () => rootRouteImport,
+const AuthenticatedAboutRoute = AuthenticatedAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AppointmentsIndexRoute = AppointmentsIndexRouteImport.update({
-  id: '/appointments/',
-  path: '/appointments/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HorsesCreateRoute = HorsesCreateRouteImport.update({
-  id: '/horses/create',
-  path: '/horses/create',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppointmentsUpdateRoute = AppointmentsUpdateRouteImport.update({
-  id: '/appointments/update',
-  path: '/appointments/update',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppointmentsCreateRoute = AppointmentsCreateRouteImport.update({
-  id: '/appointments/create',
-  path: '/appointments/create',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const AuthenticatedHorsesIndexRoute =
+  AuthenticatedHorsesIndexRouteImport.update({
+    id: '/horses/',
+    path: '/horses/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAppointmentsIndexRoute =
+  AuthenticatedAppointmentsIndexRouteImport.update({
+    id: '/appointments/',
+    path: '/appointments/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedHorsesCreateRoute =
+  AuthenticatedHorsesCreateRouteImport.update({
+    id: '/horses/create',
+    path: '/horses/create',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAppointmentsUpdateRoute =
+  AuthenticatedAppointmentsUpdateRouteImport.update({
+    id: '/appointments/update',
+    path: '/appointments/update',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAppointmentsCreateRoute =
+  AuthenticatedAppointmentsCreateRouteImport.update({
+    id: '/appointments/create',
+    path: '/appointments/create',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/': typeof AuthenticatedIndexRoute
   '/login': typeof LoginRoute
-  '/appointments/create': typeof AppointmentsCreateRoute
-  '/appointments/update': typeof AppointmentsUpdateRoute
-  '/horses/create': typeof HorsesCreateRoute
-  '/appointments/': typeof AppointmentsIndexRoute
-  '/horses/': typeof HorsesIndexRoute
+  '/about': typeof AuthenticatedAboutRoute
+  '/appointments/create': typeof AuthenticatedAppointmentsCreateRoute
+  '/appointments/update': typeof AuthenticatedAppointmentsUpdateRoute
+  '/horses/create': typeof AuthenticatedHorsesCreateRoute
+  '/appointments/': typeof AuthenticatedAppointmentsIndexRoute
+  '/horses/': typeof AuthenticatedHorsesIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
   '/login': typeof LoginRoute
-  '/appointments/create': typeof AppointmentsCreateRoute
-  '/appointments/update': typeof AppointmentsUpdateRoute
-  '/horses/create': typeof HorsesCreateRoute
-  '/appointments': typeof AppointmentsIndexRoute
-  '/horses': typeof HorsesIndexRoute
+  '/about': typeof AuthenticatedAboutRoute
+  '/': typeof AuthenticatedIndexRoute
+  '/appointments/create': typeof AuthenticatedAppointmentsCreateRoute
+  '/appointments/update': typeof AuthenticatedAppointmentsUpdateRoute
+  '/horses/create': typeof AuthenticatedHorsesCreateRoute
+  '/appointments': typeof AuthenticatedAppointmentsIndexRoute
+  '/horses': typeof AuthenticatedHorsesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
-  '/appointments/create': typeof AppointmentsCreateRoute
-  '/appointments/update': typeof AppointmentsUpdateRoute
-  '/horses/create': typeof HorsesCreateRoute
-  '/appointments/': typeof AppointmentsIndexRoute
-  '/horses/': typeof HorsesIndexRoute
+  '/_authenticated/about': typeof AuthenticatedAboutRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/appointments/create': typeof AuthenticatedAppointmentsCreateRoute
+  '/_authenticated/appointments/update': typeof AuthenticatedAppointmentsUpdateRoute
+  '/_authenticated/horses/create': typeof AuthenticatedHorsesCreateRoute
+  '/_authenticated/appointments/': typeof AuthenticatedAppointmentsIndexRoute
+  '/_authenticated/horses/': typeof AuthenticatedHorsesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
     | '/login'
+    | '/about'
     | '/appointments/create'
     | '/appointments/update'
     | '/horses/create'
@@ -103,9 +114,9 @@ export interface FileRouteTypes {
     | '/horses/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/about'
     | '/login'
+    | '/about'
+    | '/'
     | '/appointments/create'
     | '/appointments/update'
     | '/horses/create'
@@ -113,25 +124,20 @@ export interface FileRouteTypes {
     | '/horses'
   id:
     | '__root__'
-    | '/'
-    | '/about'
+    | '/_authenticated'
     | '/login'
-    | '/appointments/create'
-    | '/appointments/update'
-    | '/horses/create'
-    | '/appointments/'
-    | '/horses/'
+    | '/_authenticated/about'
+    | '/_authenticated/'
+    | '/_authenticated/appointments/create'
+    | '/_authenticated/appointments/update'
+    | '/_authenticated/horses/create'
+    | '/_authenticated/appointments/'
+    | '/_authenticated/horses/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   LoginRoute: typeof LoginRoute
-  AppointmentsCreateRoute: typeof AppointmentsCreateRoute
-  AppointmentsUpdateRoute: typeof AppointmentsUpdateRoute
-  HorsesCreateRoute: typeof HorsesCreateRoute
-  AppointmentsIndexRoute: typeof AppointmentsIndexRoute
-  HorsesIndexRoute: typeof HorsesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -143,67 +149,92 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_authenticated/': {
+      id: '/_authenticated/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/horses/': {
-      id: '/horses/'
+    '/_authenticated/about': {
+      id: '/_authenticated/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AuthenticatedAboutRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/horses/': {
+      id: '/_authenticated/horses/'
       path: '/horses'
       fullPath: '/horses/'
-      preLoaderRoute: typeof HorsesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedHorsesIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/appointments/': {
-      id: '/appointments/'
+    '/_authenticated/appointments/': {
+      id: '/_authenticated/appointments/'
       path: '/appointments'
       fullPath: '/appointments/'
-      preLoaderRoute: typeof AppointmentsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAppointmentsIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/horses/create': {
-      id: '/horses/create'
+    '/_authenticated/horses/create': {
+      id: '/_authenticated/horses/create'
       path: '/horses/create'
       fullPath: '/horses/create'
-      preLoaderRoute: typeof HorsesCreateRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedHorsesCreateRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/appointments/update': {
-      id: '/appointments/update'
+    '/_authenticated/appointments/update': {
+      id: '/_authenticated/appointments/update'
       path: '/appointments/update'
       fullPath: '/appointments/update'
-      preLoaderRoute: typeof AppointmentsUpdateRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAppointmentsUpdateRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
-    '/appointments/create': {
-      id: '/appointments/create'
+    '/_authenticated/appointments/create': {
+      id: '/_authenticated/appointments/create'
       path: '/appointments/create'
       fullPath: '/appointments/create'
-      preLoaderRoute: typeof AppointmentsCreateRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedAppointmentsCreateRouteImport
+      parentRoute: typeof AuthenticatedRoute
     }
   }
 }
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedAboutRoute: typeof AuthenticatedAboutRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedAppointmentsCreateRoute: typeof AuthenticatedAppointmentsCreateRoute
+  AuthenticatedAppointmentsUpdateRoute: typeof AuthenticatedAppointmentsUpdateRoute
+  AuthenticatedHorsesCreateRoute: typeof AuthenticatedHorsesCreateRoute
+  AuthenticatedAppointmentsIndexRoute: typeof AuthenticatedAppointmentsIndexRoute
+  AuthenticatedHorsesIndexRoute: typeof AuthenticatedHorsesIndexRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAboutRoute: AuthenticatedAboutRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedAppointmentsCreateRoute: AuthenticatedAppointmentsCreateRoute,
+  AuthenticatedAppointmentsUpdateRoute: AuthenticatedAppointmentsUpdateRoute,
+  AuthenticatedHorsesCreateRoute: AuthenticatedHorsesCreateRoute,
+  AuthenticatedAppointmentsIndexRoute: AuthenticatedAppointmentsIndexRoute,
+  AuthenticatedHorsesIndexRoute: AuthenticatedHorsesIndexRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
-  AppointmentsCreateRoute: AppointmentsCreateRoute,
-  AppointmentsUpdateRoute: AppointmentsUpdateRoute,
-  HorsesCreateRoute: HorsesCreateRoute,
-  AppointmentsIndexRoute: AppointmentsIndexRoute,
-  HorsesIndexRoute: HorsesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

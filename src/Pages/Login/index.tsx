@@ -1,14 +1,9 @@
-import {Button} from "@/components/ui/button.tsx";
+import LoginCard from "@/components/Cards/LoginCard.tsx";
 
-type LoginPagePropsType = {
-    login?: (value: boolean) => void
-}
-
-export const LoginPage = ({login}: LoginPagePropsType) => {
+export const LoginPage = () => {
     return (
-        <div>
-            loginPage
-            <Button onClick={() => login ? login(true) : console.log("nothing") }>Login</Button>
+        <div className={"flex min-h-screen w-full items-center justify-center bg-muted/40"}>
+            <LoginCard/>
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import {createFileRoute} from '@tanstack/react-router'
 import {CreateHorsePage} from "@/Pages/Horses/CreateHorsePage.tsx";
 
-export const Route = createFileRoute('/horses/create')({
+export const Route = createFileRoute('/_authenticated/horses/create')({
     component: RouteComponent,
 })
 
