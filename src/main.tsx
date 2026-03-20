@@ -4,7 +4,7 @@ import './index.css'
 import {routeTree} from './routeTree.gen'
 import {RouterProvider, createRouter} from '@tanstack/react-router'
 import {SidebarProvider} from "@/components/ui/sidebar.tsx";
-import AuthProvider, {type AuthContextType, useAuth} from "@/utils/AuthProvider.tsx";
+import AuthProvider, {type AuthContextType, useAuth} from "@/Providers/AuthProvider.tsx";
 
 const router = createRouter({
     context: {

@@ -5,8 +5,9 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Field, FieldError, FieldGroup, FieldLabel} from "@/components/ui/field.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import {useAuth} from "@/utils/AuthProvider.tsx";
+import {useAuth} from "@/Providers/AuthProvider.tsx";
 import {useNavigate} from "@tanstack/react-router";
+import {useEffect} from "react";
 
 const loginSchema = z.object({
     email: z.string(),
@@ -14,16 +15,25 @@ const loginSchema = z.object({
 })
 
 const LoginCard = () => {
-    const {handleLogin} = useAuth();
+    const {handleLogin, currentUser} = useAuth();
     const navigate = useNavigate();
     const form = useForm({
-        resolver: zodResolver(loginSchema)
+        resolver: zodResolver(loginSchema),
+        defaultValues: {
+            email: "",
+            password: ""
+        }
     })
 
     const onSubmit = async (values: z.infer<typeof loginSchema>) => {
         await handleLogin(values);
-        await navigate({to: '/'});
     };
+
+    useEffect(() => {
+        if (currentUser) {
+            navigate({ to: '/' });
+        }
+    }, [currentUser, navigate]);
 
     return (
         <Card className="w-full max-w-md">
@@ -45,6 +55,7 @@ const LoginCard = () => {
                                     <Input {...field}
                                            id={field.name}
                                            aria-invalid={fieldState.invalid}/>
+
                                     {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
                                 </Field>
                             )}/>
@@ -60,7 +71,7 @@ const LoginCard = () => {
                                     {fieldState.invalid && <FieldError errors={[fieldState.error]}/>}
                                 </Field>
                             )}/>
-                        <Button>Login</Button>
+                        <Button type={"submit"}>Login</Button>
                     </FieldGroup>
                 </CardContent>
             </form>

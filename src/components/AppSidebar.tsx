@@ -13,6 +13,7 @@ import {DynamicIcon, type IconName} from 'lucide-react/dynamic';
 import {Link} from "@tanstack/react-router";
 import {useState} from "react";
 import {Separator} from "@/components/ui/separator.tsx";
+import {useAuth} from "@/Providers/AuthProvider.tsx";
 
 type ItemType = {
     title: string;
@@ -32,6 +33,7 @@ type NavItemsType = {
 
 export const AppSidebar = () => {
     const [openItem, setOpenItem] = useState<string | null>(null)
+    const { handleLogout } = useAuth();
     const data: NavItemsType = {
         navMain: [
             {
@@ -66,8 +68,8 @@ export const AppSidebar = () => {
                 ],
             },
             {
-                title: "Dokumentation",
-                url: "#",
+                title: "Mitarbeiter",
+                url: "/employees",
                 icon: "book-open",
                 items: [
                     {
@@ -121,6 +123,7 @@ export const AppSidebar = () => {
     }
 
 
+
     const NavMain = ({items, openItem, setOpenItem}: NavMainPropsType) => (
         <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -143,7 +146,8 @@ export const AppSidebar = () => {
                                           className="flex items-center gap-2 w-full">
                                         {item.icon && <DynamicIcon name={item.icon} size={20}/>}
                                         <span>{item.title}</span>
-                                        {item.items && <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"/>}
+                                        {item.items && <ChevronRight
+                                            className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"/>}
                                     </Link>
                                 </SidebarMenuButton>
                             </CollapsibleTrigger>
@@ -177,7 +181,9 @@ export const AppSidebar = () => {
             <SidebarContent>
                 <NavMain items={data.navMain} openItem={openItem} setOpenItem={setOpenItem}/>
             </SidebarContent>
-            <SidebarFooter/>
+            <SidebarFooter>
+                <SidebarMenuButton type={"button"} onClick={() => handleLogout()}>Logout</SidebarMenuButton>
+            </SidebarFooter>
         </Sidebar>
     );
 };

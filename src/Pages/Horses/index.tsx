@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import type {HorseType} from "../../axios/Types/HorseType.ts";
+import type {HorseType} from "@/axios/Types/HorseType.ts";
 
-import {getAllHorses} from "../../axios/Endpoints/getAllHorses.ts";
+import {getAllHorses} from "@/axios/Endpoints/getAllHorses.ts";
 import HorseCard from "../../components/Cards/HorseCard.tsx";
 
 

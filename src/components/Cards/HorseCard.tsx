@@ -1,3 +1,5 @@
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card.tsx";
+
 type HorseCardProps = {
     name: string,
     type: string,
@@ -6,11 +8,15 @@ type HorseCardProps = {
 
 const HorseCard = ({name, type, age}: HorseCardProps) => {
     return (
-        <div className={'h-75 w-60 p-8 bg-white border rounded-2xl shadow-2xl hover:cursor-pointer'}>
-            <h1>{name}</h1>
-            <h2>{type}</h2>
-            <h3>{age}</h3>
-        </div>
+        <Card className="mx-auto w-full max-w-xs">
+            <CardHeader>
+                <CardTitle>{name}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <CardDescription>{type}</CardDescription>
+                <h3>{age}</h3>
+            </CardContent>
+        </Card>
     );
 };
 
