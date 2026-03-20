@@ -1,17 +1,19 @@
 import api from "@/axios/client.ts";
 import axios from "axios";
 
+
 export async function login(email: string, password: string) {
 
     try {
         await axios.get(`${import.meta.env.VITE_API_URL}/sanctum/csrf-cookie`, {
-            withCredentials: true
+            withCredentials: true,
+            withXSRFToken: true
         });
         const res = await api.post('/login', {
             email,
             password
         });
-        return {success: true, data: res.data.data};
+        return {success: true, user: res.data.user};
     } catch (err) {
         const message = axios.isAxiosError(err)
             ? err.response?.data?.message ?? err.message

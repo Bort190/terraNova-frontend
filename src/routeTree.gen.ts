@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedAboutRouteImport } from './routes/_authenticated/about'
 import { Route as AuthenticatedHorsesIndexRouteImport } from './routes/_authenticated/horses/index'
+import { Route as AuthenticatedEmployeesIndexRouteImport } from './routes/_authenticated/employees/index'
 import { Route as AuthenticatedAppointmentsIndexRouteImport } from './routes/_authenticated/appointments/index'
 import { Route as AuthenticatedHorsesCreateRouteImport } from './routes/_authenticated/horses/create'
 import { Route as AuthenticatedAppointmentsUpdateRouteImport } from './routes/_authenticated/appointments/update'
@@ -42,6 +43,12 @@ const AuthenticatedHorsesIndexRoute =
   AuthenticatedHorsesIndexRouteImport.update({
     id: '/horses/',
     path: '/horses/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedEmployeesIndexRoute =
+  AuthenticatedEmployeesIndexRouteImport.update({
+    id: '/employees/',
+    path: '/employees/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedAppointmentsIndexRoute =
@@ -77,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/appointments/update': typeof AuthenticatedAppointmentsUpdateRoute
   '/horses/create': typeof AuthenticatedHorsesCreateRoute
   '/appointments/': typeof AuthenticatedAppointmentsIndexRoute
+  '/employees/': typeof AuthenticatedEmployeesIndexRoute
   '/horses/': typeof AuthenticatedHorsesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -87,6 +95,7 @@ export interface FileRoutesByTo {
   '/appointments/update': typeof AuthenticatedAppointmentsUpdateRoute
   '/horses/create': typeof AuthenticatedHorsesCreateRoute
   '/appointments': typeof AuthenticatedAppointmentsIndexRoute
+  '/employees': typeof AuthenticatedEmployeesIndexRoute
   '/horses': typeof AuthenticatedHorsesIndexRoute
 }
 export interface FileRoutesById {
@@ -99,6 +108,7 @@ export interface FileRoutesById {
   '/_authenticated/appointments/update': typeof AuthenticatedAppointmentsUpdateRoute
   '/_authenticated/horses/create': typeof AuthenticatedHorsesCreateRoute
   '/_authenticated/appointments/': typeof AuthenticatedAppointmentsIndexRoute
+  '/_authenticated/employees/': typeof AuthenticatedEmployeesIndexRoute
   '/_authenticated/horses/': typeof AuthenticatedHorsesIndexRoute
 }
 export interface FileRouteTypes {
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/appointments/update'
     | '/horses/create'
     | '/appointments/'
+    | '/employees/'
     | '/horses/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/appointments/update'
     | '/horses/create'
     | '/appointments'
+    | '/employees'
     | '/horses'
   id:
     | '__root__'
@@ -132,6 +144,7 @@ export interface FileRouteTypes {
     | '/_authenticated/appointments/update'
     | '/_authenticated/horses/create'
     | '/_authenticated/appointments/'
+    | '/_authenticated/employees/'
     | '/_authenticated/horses/'
   fileRoutesById: FileRoutesById
 }
@@ -177,6 +190,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHorsesIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/employees/': {
+      id: '/_authenticated/employees/'
+      path: '/employees'
+      fullPath: '/employees/'
+      preLoaderRoute: typeof AuthenticatedEmployeesIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/appointments/': {
       id: '/_authenticated/appointments/'
       path: '/appointments'
@@ -215,6 +235,7 @@ interface AuthenticatedRouteChildren {
   AuthenticatedAppointmentsUpdateRoute: typeof AuthenticatedAppointmentsUpdateRoute
   AuthenticatedHorsesCreateRoute: typeof AuthenticatedHorsesCreateRoute
   AuthenticatedAppointmentsIndexRoute: typeof AuthenticatedAppointmentsIndexRoute
+  AuthenticatedEmployeesIndexRoute: typeof AuthenticatedEmployeesIndexRoute
   AuthenticatedHorsesIndexRoute: typeof AuthenticatedHorsesIndexRoute
 }
 
@@ -225,6 +246,7 @@ const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedAppointmentsUpdateRoute: AuthenticatedAppointmentsUpdateRoute,
   AuthenticatedHorsesCreateRoute: AuthenticatedHorsesCreateRoute,
   AuthenticatedAppointmentsIndexRoute: AuthenticatedAppointmentsIndexRoute,
+  AuthenticatedEmployeesIndexRoute: AuthenticatedEmployeesIndexRoute,
   AuthenticatedHorsesIndexRoute: AuthenticatedHorsesIndexRoute,
 }
 
