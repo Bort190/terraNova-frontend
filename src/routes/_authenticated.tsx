@@ -3,6 +3,7 @@ import { SidebarInset} from "@/components/ui/sidebar.tsx";
 import {AppSidebar} from "@/components/AppSidebar.tsx";
 import {useEffect} from "react";
 import {useAuth} from "@/Providers/AuthProvider.tsx";
+import {Card} from "@/components/ui/card.tsx";
 
 export const Route = createFileRoute('/_authenticated')({
     beforeLoad: ({ context }) => {
@@ -29,7 +30,9 @@ function RouteComponent() {
       <>
           <AppSidebar />
           <SidebarInset>
-              <Outlet />
+              <Card className={"p-6 m-3"}>
+                  <Outlet />
+              </Card>
           </SidebarInset>
       </>
 

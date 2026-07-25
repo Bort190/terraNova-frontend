@@ -122,8 +122,6 @@ export const AppSidebar = () => {
         setOpenItem: (value: string | null) => void
     }
 
-
-
     const NavMain = ({items, openItem, setOpenItem}: NavMainPropsType) => (
         <SidebarGroup>
             <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -171,20 +169,20 @@ export const AppSidebar = () => {
     )
 
     return (
-        <Sidebar>
-            <SidebarHeader>
-                <SidebarMenu>
-                    <SidebarMenuItem>Terra Nova CRM</SidebarMenuItem>
-                </SidebarMenu>
-            </SidebarHeader>
-            <Separator/>
-            <SidebarContent>
-                <NavMain items={data.navMain} openItem={openItem} setOpenItem={setOpenItem}/>
-            </SidebarContent>
-            <SidebarFooter>
-                <SidebarMenuButton type={"button"} onClick={() => handleLogout()}>Logout</SidebarMenuButton>
-            </SidebarFooter>
-        </Sidebar>
+            <Sidebar variant={"floating"}>
+                <SidebarHeader>
+                    <SidebarMenu>
+                        <SidebarMenuItem>Terra Nova CRM</SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarHeader>
+                <Separator/>
+                <SidebarContent>
+                    <NavMain items={data.navMain} openItem={openItem} setOpenItem={setOpenItem}/>
+                </SidebarContent>
+                <SidebarFooter>
+                    <SidebarMenuButton type={"button"} onClick={() => handleLogout()}>Logout</SidebarMenuButton>
+                </SidebarFooter>
+            </Sidebar>
     );
 };
 

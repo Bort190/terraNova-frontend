@@ -1,134 +1,43 @@
-import {useState} from "react";
-import {createColumnHelper, flexRender, getCoreRowModel, useReactTable} from "@tanstack/react-table";
-import {Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow} from "@/components/ui/table.tsx";
+import {useEffect, useState} from "react";
+import type {Employee} from "@/axios/Types/EmployeeType.ts";
+import {getAllEmployees} from "@/axios/Endpoints/getAllEmployees.tsx";
+import DataTable from "@/components/Table/Table.tsx";
+import type {ColumnDef} from "@tanstack/react-table";
+import {Button} from "@/components/ui/button.tsx";
 
-//TData
-type User = {
-    firstName: string
-    lastName: string
-    age: number
-    visits: number
-    progress: number
-    status: string
-}
-
-const dummyData: User[] =
-    [
-        {
-            "firstName": "Tanner",
-            "lastName": "Linsley",
-            "age": 33,
-            "visits": 100,
-            "progress": 50,
-            "status": "Married"
-        },
-        {
-            "firstName": "Kevin",
-            "lastName": "Vandy",
-            "age": 27,
-            "visits": 200,
-            "progress": 100,
-            "status": "Single"
-        }
-    ]
-
-
-const columnHelper = createColumnHelper<User>()
-
-const columns = [
+const columns: ColumnDef<Employee>[] = [
     {
-        accessorKey: 'firstName',
+        header: () => (<Button variant={"ghost"} >Vorname</Button>),
+        accessorKey: 'first_name',
     },
-    columnHelper.accessor((row) => row.lastName, {
-        id: 'lastName',
-        cell: (info) => <i>{info.getValue()}</i>,
-        header: () => <span>Last Name</span>,
-    }),
-    columnHelper.accessor('age', {
-        header: () => 'Age',
-        cell: (info) => info.renderValue(),
-    }),
-    columnHelper.accessor('visits', {
-        header: () => <span>Visits</span>,
-    }),
-    columnHelper.accessor('status', {
-        header: 'Status',
-    }),
-    columnHelper.accessor('progress', {
-        header: 'Profile Progress',
-    }),
+    {
+        header: () => (<Button variant={"ghost"} >Nachname</Button>),
+        accessorKey: 'last_name',
+    }
 ]
 
 const EmployeesListPage = () => {
-    const [data] = useState<User[]>(dummyData)
-    const [hasFooter] = useState<boolean>(false)
+    const [data, setData] = useState<Employee[]>([])
 
 
-    const table = useReactTable({
-        data,
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-    })
-
-    // const [employees, setEmployees] = useState<Employee[] | null>(null)
-    // useEffect(() => {
-    //     getAllEmployees().then((res) => {
-    //             if (res.success) {
-    //                 setEmployees(res.data)
-    //             } else {
-    //                 console.log(res.error)
-    //             }
-    //         }
-    //     )
-    // }, []);
+    useEffect(() => {
+        getAllEmployees().then((res) => {
+                if (res.status) {
+                    setData(res.data)
+                } else  {
+                if (res.type === "validation") {
+                    console.log(res.messages); // ✅ Objekt mit Feldern
+                } else {
+                    console.log(res.message);  // ✅ einfacher string
+                }
+            }
+            }
+        )
+    }, []);
 
     return (
-        <div className="p-2 bg-gray-300">
-            <Table>
-                <TableHeader>
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => (
-                                <TableHead key={header.id}>
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext(),
-                                        )}
-                                </TableHead>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableHeader>
-                <TableBody>
-                    {table.getRowModel().rows.map((row) => (
-                        <TableRow key={row.id}>
-                            {row.getVisibleCells().map((cell) => (
-                                <TableCell key={cell.id}>
-                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableBody>
-                {hasFooter && <TableFooter>
-                    {table.getFooterGroups().map((footerGroup) => (
-                        <TableRow key={footerGroup.id}>
-                            {footerGroup.headers.map((header) => (
-                                <TableHead key={header.id}>
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(
-                                            header.column.columnDef.footer,
-                                            header.getContext(),
-                                        )}
-                                </TableHead>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableFooter>}
-            </Table>
+        <div className="p-2 bg-gray-100">
+            <DataTable data={data} columns={columns} />
         </div>
     )
 
