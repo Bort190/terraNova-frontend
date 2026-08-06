@@ -7,6 +7,8 @@ export const Route = createFileRoute('/_authenticated/')({
 
 function RouteComponent() {
     return (
-        <DashboardPage/>
+        <div className="flex w-full min-h-screen">
+            <DashboardPage/>
+        </div>
     )
 }

@@ -9,24 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedAboutRouteImport } from './routes/_authenticated/about'
-import { Route as AuthenticatedHorsesIndexRouteImport } from './routes/_authenticated/horses/index'
-import { Route as AuthenticatedEmployeesIndexRouteImport } from './routes/_authenticated/employees/index'
 import { Route as AuthenticatedAppointmentsIndexRouteImport } from './routes/_authenticated/appointments/index'
-import { Route as AuthenticatedHorsesCreateRouteImport } from './routes/_authenticated/horses/create'
-import { Route as AuthenticatedAppointmentsUpdateRouteImport } from './routes/_authenticated/appointments/update'
 import { Route as AuthenticatedAppointmentsCreateRouteImport } from './routes/_authenticated/appointments/create'
+import { Route as AuthenticatedAppointmentsUpdateRouteImport } from './routes/_authenticated/appointments/update'
+import { Route as AuthenticatedEmployeesIndexRouteImport } from './routes/_authenticated/employees/index'
+import { Route as AuthenticatedHorsesIndexRouteImport } from './routes/_authenticated/horses/index'
+import { Route as AuthenticatedHorsesCreateRouteImport } from './routes/_authenticated/horses/create'
 
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedRoute = AuthenticatedRouteImport.update({
-  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
@@ -39,28 +39,16 @@ const AuthenticatedAboutRoute = AuthenticatedAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedHorsesIndexRoute =
-  AuthenticatedHorsesIndexRouteImport.update({
-    id: '/horses/',
-    path: '/horses/',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const AuthenticatedEmployeesIndexRoute =
-  AuthenticatedEmployeesIndexRouteImport.update({
-    id: '/employees/',
-    path: '/employees/',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
 const AuthenticatedAppointmentsIndexRoute =
   AuthenticatedAppointmentsIndexRouteImport.update({
     id: '/appointments/',
     path: '/appointments/',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedHorsesCreateRoute =
-  AuthenticatedHorsesCreateRouteImport.update({
-    id: '/horses/create',
-    path: '/horses/create',
+const AuthenticatedAppointmentsCreateRoute =
+  AuthenticatedAppointmentsCreateRouteImport.update({
+    id: '/appointments/create',
+    path: '/appointments/create',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 const AuthenticatedAppointmentsUpdateRoute =
@@ -69,10 +57,22 @@ const AuthenticatedAppointmentsUpdateRoute =
     path: '/appointments/update',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
-const AuthenticatedAppointmentsCreateRoute =
-  AuthenticatedAppointmentsCreateRouteImport.update({
-    id: '/appointments/create',
-    path: '/appointments/create',
+const AuthenticatedEmployeesIndexRoute =
+  AuthenticatedEmployeesIndexRouteImport.update({
+    id: '/employees/',
+    path: '/employees/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedHorsesIndexRoute =
+  AuthenticatedHorsesIndexRouteImport.update({
+    id: '/horses/',
+    path: '/horses/',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedHorsesCreateRoute =
+  AuthenticatedHorsesCreateRouteImport.update({
+    id: '/horses/create',
+    path: '/horses/create',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
 
@@ -155,18 +155,18 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/': {
@@ -183,20 +183,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAboutRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/horses/': {
-      id: '/_authenticated/horses/'
-      path: '/horses'
-      fullPath: '/horses/'
-      preLoaderRoute: typeof AuthenticatedHorsesIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/employees/': {
-      id: '/_authenticated/employees/'
-      path: '/employees'
-      fullPath: '/employees/'
-      preLoaderRoute: typeof AuthenticatedEmployeesIndexRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
     '/_authenticated/appointments/': {
       id: '/_authenticated/appointments/'
       path: '/appointments'
@@ -204,11 +190,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppointmentsIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/horses/create': {
-      id: '/_authenticated/horses/create'
-      path: '/horses/create'
-      fullPath: '/horses/create'
-      preLoaderRoute: typeof AuthenticatedHorsesCreateRouteImport
+    '/_authenticated/appointments/create': {
+      id: '/_authenticated/appointments/create'
+      path: '/appointments/create'
+      fullPath: '/appointments/create'
+      preLoaderRoute: typeof AuthenticatedAppointmentsCreateRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/appointments/update': {
@@ -218,11 +204,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppointmentsUpdateRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/appointments/create': {
-      id: '/_authenticated/appointments/create'
-      path: '/appointments/create'
-      fullPath: '/appointments/create'
-      preLoaderRoute: typeof AuthenticatedAppointmentsCreateRouteImport
+    '/_authenticated/employees/': {
+      id: '/_authenticated/employees/'
+      path: '/employees'
+      fullPath: '/employees/'
+      preLoaderRoute: typeof AuthenticatedEmployeesIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/horses/': {
+      id: '/_authenticated/horses/'
+      path: '/horses'
+      fullPath: '/horses/'
+      preLoaderRoute: typeof AuthenticatedHorsesIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/horses/create': {
+      id: '/_authenticated/horses/create'
+      path: '/horses/create'
+      fullPath: '/horses/create'
+      preLoaderRoute: typeof AuthenticatedHorsesCreateRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
   }

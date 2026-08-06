@@ -1,17 +1,10 @@
-import {StrictMode} from 'react'
+import {StrictMode, useEffect} from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import {routeTree} from './routeTree.gen'
-import {RouterProvider, createRouter} from '@tanstack/react-router'
+import {RouterProvider} from '@tanstack/react-router'
 import {SidebarProvider} from "@/components/ui/sidebar.tsx";
 import AuthProvider, {type AuthContextType, useAuth} from "@/Providers/AuthProvider.tsx";
-
-const router = createRouter({
-    context: {
-        auth: undefined!
-    },
-    routeTree
-})
+import { router } from "./router";
 
 declare module '@tanstack/react-router' {
     interface Register {
@@ -21,6 +14,10 @@ declare module '@tanstack/react-router' {
 /* eslint-disable react-refresh/only-export-components */
 const InnerApp = () => {
     const auth: AuthContextType = useAuth();
+    useEffect(() => {
+        router.invalidate();
+    }, [auth.currentUser]);
+
     return (
         <SidebarProvider>
             <RouterProvider router={router} context={{auth}}/>
@@ -28,7 +25,6 @@ const InnerApp = () => {
     )
 }
 
-// Render the app
 const rootElement = document.getElementById('root')!
 if (!rootElement.innerHTML) {
     const root = ReactDOM.createRoot(rootElement)

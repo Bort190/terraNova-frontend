@@ -1,8 +1,6 @@
-import {createFileRoute, Outlet, redirect, useNavigate} from '@tanstack/react-router'
+import {createFileRoute, Outlet, redirect, } from '@tanstack/react-router'
 import { SidebarInset} from "@/components/ui/sidebar.tsx";
 import {AppSidebar} from "@/components/AppSidebar.tsx";
-import {useEffect} from "react";
-import {useAuth} from "@/Providers/AuthProvider.tsx";
 import {Card} from "@/components/ui/card.tsx";
 
 export const Route = createFileRoute('/_authenticated')({
@@ -18,23 +16,17 @@ export const Route = createFileRoute('/_authenticated')({
 })
 
 function RouteComponent() {
-    const {isLoading, currentUser} = useAuth();
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (!isLoading && !currentUser) {
-            navigate({ to: "/login" });
-        }
-    }, [currentUser, isLoading, navigate]);
+
 
   return (
-      <>
+      <div className="flex w-full min-h-screen">
           <AppSidebar />
           <SidebarInset>
               <Card className={"p-6 m-3"}>
                   <Outlet />
               </Card>
           </SidebarInset>
-      </>
+      </div>
 
   )
 }

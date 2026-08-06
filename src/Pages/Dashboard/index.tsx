@@ -51,7 +51,7 @@ const columns: ColumnDef<HorseType>[] = [
 
 export const DashboardPage = () => {
     return (
-        <div>
+        <div className="w-full bg-amber-200">
             <CardHeader>Dashboard</CardHeader>
             <div className={"flex gap-2"}>
                 <Card className={"w-1/4"}>
