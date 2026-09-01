@@ -27,10 +27,12 @@ export default function AuthProvider({children}: AuthProviderProps) {
             try {
                 const res = await api.get('/user');
                 setCurrentUser(res.data);
+                console.log(res.data)
             } catch {
                 setCurrentUser(null);
             } finally {
                 setIsLoading(false);
+                console.log(currentUser)
             }
         }
 

@@ -6,11 +6,5 @@ export const Route = createFileRoute('/_authenticated/horses/')({
 })
 
 function RouteComponent() {
-    return (
-<>
-    <h1>Übersicht</h1>
-    <OverviewPage/>
-</>
-
-)
+    return <OverviewPage/>
 }

@@ -5,7 +5,6 @@ import {Card} from "@/components/ui/card.tsx";
 
 export const Route = createFileRoute('/_authenticated')({
     beforeLoad: ({ context }) => {
-        if (context.auth.isLoading) return;
         if (!context.auth.currentUser) {
             throw redirect({
                 to: '/login'

@@ -2,8 +2,8 @@ import {Controller, useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel} from "@/components/ui/field.tsx";
-import Button from "@/components/Button.tsx";
 import {createAppointment} from "@/axios/Endpoints/createAppointment.ts";
+import {Button} from "@/components/ui/button.tsx";
 
 
 export const CreateAppointmentPage = () => {
