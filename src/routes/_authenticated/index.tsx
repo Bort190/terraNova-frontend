@@ -1,5 +1,5 @@
 import {createFileRoute} from '@tanstack/react-router'
-import {DashboardPage} from "@/Pages/Dashboard";
+import {DashboardPage} from "@/Pages/Dashboard/DashboardPage.tsx";
 
 export const Route = createFileRoute('/_authenticated/')({
     component: RouteComponent,
@@ -7,7 +7,7 @@ export const Route = createFileRoute('/_authenticated/')({
 
 function RouteComponent() {
     return (
-        <div className="flex w-full min-h-screen">
+        <div className="flex w-full min-h-full">
             <DashboardPage/>
         </div>
     )

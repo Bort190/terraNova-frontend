@@ -5,12 +5,12 @@ import {Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabe
 import {Input} from "@/components/ui/input.tsx";
 import {DialogClose} from "@/components/ui/dialog.tsx";
 import {Button} from "@/components/ui/button.tsx";
-import {createHorse} from "@/axios/Endpoints/createHorse.tsx";
+import {createHorse} from "@/axios/Endpoints/createHorse.ts";
 
-type CreateHorseFormProps = {
+type CreateHorsePageProps = {
     onSuccess: () => void
 }
-export const CreateHorseForm = ({onSuccess}:CreateHorseFormProps) => {
+export const CreateHorseForm = ({onSuccess}:CreateHorsePageProps) => {
     const createHorseSchema = z.object({
         name: z.string().min(1),
         type: z.string().min(1),
@@ -93,10 +93,12 @@ export const CreateHorseForm = ({onSuccess}:CreateHorseFormProps) => {
                         </Field>
                     )}
                 />
-                <DialogClose asChild>
-                    <Button>Abbrechen</Button>
-                </DialogClose>
-              <Button>Eintrag abschließen</Button>
+                <div className="flex justify-between items-center">
+                    <DialogClose asChild>
+                        <Button>Abbrechen</Button>
+                    </DialogClose>
+                    <Button>Eintrag abschließen</Button>
+                </div>
             </FieldGroup>
         </form>
     );

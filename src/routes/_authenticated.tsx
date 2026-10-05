@@ -1,6 +1,6 @@
 import {createFileRoute, Outlet, redirect, } from '@tanstack/react-router'
 import { SidebarInset} from "@/components/ui/sidebar.tsx";
-import {AppSidebar} from "@/components/AppSidebar.tsx";
+import {AppSidebar} from "@/components/Sidebar/AppSidebar.tsx";
 import {Card} from "@/components/ui/card.tsx";
 
 export const Route = createFileRoute('/_authenticated')({
@@ -21,7 +21,7 @@ function RouteComponent() {
       <div className="flex w-full min-h-screen">
           <AppSidebar />
           <SidebarInset>
-              <Card className={"p-6 m-3"}>
+              <Card className={"p-6 m-3 h-full"}>
                   <Outlet />
               </Card>
           </SidebarInset>

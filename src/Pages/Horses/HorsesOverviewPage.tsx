@@ -5,24 +5,30 @@ import {getAllHorses} from "@/axios/Endpoints/getAllHorses.ts";
 import HorseCard from "../../components/Cards/HorseCard.tsx";
 import {Page, PageHeader} from "@/components/Page/Page.tsx";
 import {Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger} from "@/components/ui/dialog.tsx";
-import {CreateHorseForm} from "@/Pages/Horses/create.tsx";
+import {CreateHorseForm} from "@/components/Forms/CreateHorseForm.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {CirclePlus} from "lucide-react";
+import {handleAxiosError} from "@/axios/utils.ts";
 
 
-export const OverviewPage = () => {
+export const HorsesOverviewPage = () => {
     const [horses, setHorses] = useState<HorseType[]>([]);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        getAllHorses().then((res) => {
-                if (res.status) {
-                    setHorses(res.data)
-                } else {
-                    console.log("irgendwas ist schiefgelaufen")
-                }
+        const fetchHorses = async () => {
+            try {
+                const horses = await getAllHorses();
+
+                setHorses(horses);
+
+            } catch (error) {
+                handleAxiosError(error);
+                console.error(error);
             }
-        )
+        };
+
+        fetchHorses();
     }, []);
 
 
@@ -31,7 +37,7 @@ export const OverviewPage = () => {
             <PageHeader title={"Übersichtsseite"} />
             <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
-                    <Button size="icon" variant="destructive"><CirclePlus /></Button>
+                    <Button size="icon" variant="secondary"><CirclePlus /></Button>
                 </DialogTrigger>
                 <DialogContent>
                     <DialogTitle>Neuen Eintrag erstellen</DialogTitle>

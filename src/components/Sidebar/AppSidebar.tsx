@@ -33,7 +33,7 @@ type NavItemsType = {
 
 export const AppSidebar = () => {
     const [openItem, setOpenItem] = useState<string | null>(null)
-    const { handleLogout } = useAuth();
+    const {handleLogout} = useAuth();
     const data: NavItemsType = {
         navMain: [
             {
@@ -137,18 +137,21 @@ export const AppSidebar = () => {
                         }
                     >
                         <SidebarMenuItem>
-                            <CollapsibleTrigger asChild>
-                                <SidebarMenuButton asChild tooltip={item.title}>
-                                    <Link to={item.url} activeOptions={{exact: false}}
-                                          activeProps={{className: "bg-gray-200 font-medium",}}
-                                          className="flex items-center gap-2 w-full">
-                                        {item.icon && <DynamicIcon name={item.icon} size={20}/>}
-                                        <span>{item.title}</span>
-                                        {item.items && <ChevronRight
-                                            className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"/>}
-                                    </Link>
-                                </SidebarMenuButton>
-                            </CollapsibleTrigger>
+
+                            <SidebarMenuButton asChild tooltip={item.title}>
+                                <Link to={item.url} activeOptions={{exact: false}}
+                                      activeProps={{className: "bg-gray-200 font-medium",}}
+                                      className="flex items-center gap-2 w-full">
+                                    {item.icon && <DynamicIcon name={item.icon} size={20}/>}
+                                    <span>{item.title}</span>
+                                    {item.items
+                                        && <CollapsibleTrigger asChild>
+                                            <ChevronRight
+                                                className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"/>
+                                        </CollapsibleTrigger>}
+                                </Link>
+                            </SidebarMenuButton>
+
                             <CollapsibleContent>
                                 <SidebarMenuSub>
                                     {item.items?.map((subItem) => (
@@ -169,20 +172,20 @@ export const AppSidebar = () => {
     )
 
     return (
-            <Sidebar variant={"floating"}>
-                <SidebarHeader>
-                    <SidebarMenu>
-                        <SidebarMenuItem>Terra Nova CRM</SidebarMenuItem>
-                    </SidebarMenu>
-                </SidebarHeader>
-                <Separator/>
-                <SidebarContent>
-                    <NavMain items={data.navMain} openItem={openItem} setOpenItem={setOpenItem}/>
-                </SidebarContent>
-                <SidebarFooter>
-                    <SidebarMenuButton type={"button"} onClick={() => handleLogout()}>Logout</SidebarMenuButton>
-                </SidebarFooter>
-            </Sidebar>
+        <Sidebar variant={"floating"}>
+            <SidebarHeader>
+                <SidebarMenu>
+                    <SidebarMenuItem>Terra Nova CRM</SidebarMenuItem>
+                </SidebarMenu>
+            </SidebarHeader>
+            <Separator/>
+            <SidebarContent>
+                <NavMain items={data.navMain} openItem={openItem} setOpenItem={setOpenItem}/>
+            </SidebarContent>
+            <SidebarFooter>
+                <SidebarMenuButton type={"button"} onClick={() => handleLogout()}>Logout</SidebarMenuButton>
+            </SidebarFooter>
+        </Sidebar>
     );
 };
 

@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import type {Employee} from "@/axios/Types/EmployeeType.ts";
-import {getAllEmployees} from "@/axios/Endpoints/getAllEmployees.tsx";
+import {getAllEmployees} from "@/axios/Endpoints/getAllEmployees.ts";
 import DataTable from "@/components/Table/Table.tsx";
 import type {ColumnDef} from "@tanstack/react-table";
 import {Button} from "@/components/ui/button.tsx";
+import {handleAxiosError} from "@/axios/utils.ts";
 
 const columns: ColumnDef<Employee>[] = [
     {
@@ -16,23 +17,23 @@ const columns: ColumnDef<Employee>[] = [
     }
 ]
 
-const EmployeesListPage = () => {
+const EmployeesOverviewPage = () => {
     const [data, setData] = useState<Employee[]>([])
 
-
     useEffect(() => {
-        getAllEmployees().then((res) => {
-                if (res.status) {
-                    setData(res.data)
-                } else  {
-                if (res.type === "validation") {
-                    console.log(res.messages); // ✅ Objekt mit Feldern
-                } else {
-                    console.log(res.message);  // ✅ einfacher string
-                }
+        const fetchEmployees = async () => {
+            try {
+                const employees = await getAllEmployees();
+
+                    setData(employees);
+
+            } catch (error) {
+                handleAxiosError(error);
+                console.error(error);
             }
-            }
-        )
+        };
+
+        fetchEmployees();
     }, []);
 
     return (
@@ -43,4 +44,4 @@ const EmployeesListPage = () => {
 
 };
 
-export default EmployeesListPage;
+export default EmployeesOverviewPage;
