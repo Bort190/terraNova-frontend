@@ -4,7 +4,10 @@ import axios from "axios";
 
 type CreateAppointmentType = {
     name: string;
+    type?: string;
     description?: string;
+    start_date?: Date;
+    duration?: number;
 }
 
 

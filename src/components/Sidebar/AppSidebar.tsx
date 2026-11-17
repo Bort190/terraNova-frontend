@@ -58,7 +58,7 @@ export const AppSidebar = () => {
                 icon: "clipboard-clock",
                 items: [
                     {
-                        title: "Hinzufügen",
+                        title: "Neuer Termin",
                         url: "/appointments/create",
                     },
                     {
